@@ -106,3 +106,47 @@ def menu_administrador():
             break
         else:
             print(' Opção inválida, digite novamente.')
+
+def carregar_dados_usuarios():
+    with open('usuarios.json', 'r') as arquivo:
+        dados_usuarios = json.load(arquivo)
+    return dados_usuarios
+
+
+def realizar_login():
+    dados_usuarios = carregar_dados_usuarios()
+    print('\n>>>>> Realizar o Login <<<<<')
+    login = input(' Digite o login: ')
+    senha = input(' Digite a senha: ')
+
+    if login in dados_usuarios and senha == dados_usuarios[login]['senha']:
+        print(' Login efetuado com sucesso!')
+        menu_ocorrencia(login)
+
+    else:
+        print(' Usuário ou senha incorreta. Não foi possível efetuar o login.')
+
+    return login
+
+def esqueci_a_senha():
+    dados_usuarios = carregar_dados_usuarios()
+    print('\n>>>>> Esqueci a Senha <<<<<')
+
+    email = input('Digite o e-mail associado ao seu login: ')
+
+    for login, info_usuario in dados_usuarios.items():
+        if info_usuario['email'].lower() == email.lower():
+            nova_senha = input('Digite a nova senha: ')
+
+            # Vai verificar se a senha é diferente da original
+            if nova_senha == info_usuario['senha']:
+                print('A nova senha não pode ser igual à senha atual. Tente novamente.')
+                return
+
+            dados_usuarios[login]['senha'] = nova_senha
+            with open('usuarios.json', 'w') as arquivo:
+                json.dump(dados_usuarios, arquivo, indent=2)
+            print('Senha alterada com sucesso!')
+            return
+
+    print('E-mail não encontrado. Não foi possível alterar a senha.')
