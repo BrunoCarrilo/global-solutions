@@ -1,3 +1,7 @@
+import json
+from datetime import datetime
+
+
 def menu_principal():
     while True:
         print('======= DesfibrilaDrone =======')
@@ -107,6 +111,7 @@ def menu_administrador():
         else:
             print(' Opção inválida, digite novamente.')
 
+
 def carregar_dados_usuarios():
     with open('usuarios.json', 'r') as arquivo:
         dados_usuarios = json.load(arquivo)
@@ -127,6 +132,7 @@ def realizar_login():
         print(' Usuário ou senha incorreta. Não foi possível efetuar o login.')
 
     return login
+
 
 def esqueci_a_senha():
     dados_usuarios = carregar_dados_usuarios()
@@ -216,7 +222,6 @@ def alterar_ocorrencias():
         if 0 <= num_ocorrencia < len(ocorrencias):
 
             ocorrencia_selecionada = ocorrencias[num_ocorrencia]
-
 
             print(f'\nOcorrência Selecionada para Alteração:')
             print(f"Data: {ocorrencia_selecionada['data']}")
