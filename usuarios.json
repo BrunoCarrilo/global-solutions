@@ -1,7 +1,22 @@
 {
-    "admin1": "123456",
-    "admin2": "789012",
-    "admin3": "240794",
-    "admin4": "061097",
-    "admin5": "947385"
+  "patricianaomi": {
+    "senha": "soufofinha",
+    "email": "patrician@exemplo.com"
+  },
+  "brunocarrilo": {
+    "senha": "abacaxi123",
+    "email": "brunoc@exemplo.com"
+  },
+  "saraingrid": {
+    "senha": "morango123",
+    "email": "sarai@exemplo.com"
+  },
+  "claudiobispo": {
+    "senha": "caju123",
+    "email": "claudiob@exemplo.com"
+  },
+  "nathaliacomeron": {
+    "senha": "kiwi123",
+    "email": "nathaliac@exemplo.com"
+  }
 }
