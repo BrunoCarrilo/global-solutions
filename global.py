@@ -150,3 +150,132 @@ def esqueci_a_senha():
             return
 
     print('E-mail não encontrado. Não foi possível alterar a senha.')
+
+
+def menu_ocorrencia(login):
+    while True:
+        print('\n====== Menu de Ocorrências =====')
+        print(' [1] Registrar Ocorrência')
+        print(' [2] Alterar Ocorrência')
+        print(' [3] Listar todas as Ocorrências')
+        print(' [0] Sair do Programa')
+        print('===============================')
+
+        op = input(' Digite uma opção: ')
+
+        if op == '1':
+            registrar_ocorrencia(login)
+        elif op == '2':
+            alterar_ocorrencias()
+        elif op == '3':
+            listar_ocorrencias()
+        elif op == '0':
+            exit()
+        else:
+            print(' Opção inválida, digite novamente.\n')
+
+
+def registrar_ocorrencia(login):
+    print('\n>>>>> Realizar Ocorrência <<<<<')
+    with open('ocorrencias.json', 'r') as arquivo_ocorrencias:
+        ocorrencias = json.load(arquivo_ocorrencias)
+
+    nova_ocorrencia = {'tipoOcorrencia': input(' Digite o tipo da ocorrência: '),
+                       'data': datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
+                       'local': input(' Digite o local da ocorrência: '), 'status': True,
+                       'observacoes': input(' Digite as observações da ocorrência: '), 'login': login}
+
+    ocorrencias.append(nova_ocorrencia)
+
+    with open('ocorrencias.json', 'w', encoding='utf-8') as arquivo_ocorrencias:
+        json.dump(ocorrencias, arquivo_ocorrencias, indent=2, ensure_ascii=False)
+
+    print(' Ocorrência registrada com sucesso!')
+
+
+def alterar_ocorrencias():
+    print('\n>>>>> Alterar Ocorrência <<<<<')
+    with open('ocorrencias.json', 'r', encoding='utf-8') as arquivo_ocorrencias:
+        ocorrencias = json.load(arquivo_ocorrencias)
+
+    if not ocorrencias:
+        print(' Não há ocorrências para alterar.')
+        return
+
+    for i, ocorrencia in enumerate(ocorrencias):
+        print(f"{i + 1}. Tipo: {ocorrencia['tipoOcorrencia']}, Data: {ocorrencia['data']},"
+              f" Status: {'Aberta' if ocorrencia['status'] else 'Fechada'}")
+
+    num_ocorrencia = input('Digite o número da ocorrência que deseja alterar (ou \'0\' para cancelar): ')
+
+    if num_ocorrencia == '0':
+        return
+
+    try:
+        num_ocorrencia = int(num_ocorrencia) - 1
+        if 0 <= num_ocorrencia < len(ocorrencias):
+
+            ocorrencia_selecionada = ocorrencias[num_ocorrencia]
+
+
+            print(f'\nOcorrência Selecionada para Alteração:')
+            print(f"Data: {ocorrencia_selecionada['data']}")
+            print(f"Status: {'Aberta' if ocorrencia_selecionada['status'] else 'Fechada'}")
+            print(f"Tipo: {ocorrencia_selecionada['tipoOcorrencia']}")
+            print(f"Local: {ocorrencia_selecionada['local']}")
+            print(f"Observações: {ocorrencia_selecionada['observacoes']}")
+            print('----------------------------')
+
+            # Solicita ao usuário qual dado deseja alterar
+            op = input(' Digite o número correspondente ao dado que deseja alterar:'
+                       '\n [1] Tipo da Ocorrência'
+                       '\n [2] Local da Ocorrência'
+                       '\n [3] Status da Ocorrência (Aberta/Fechada)'
+                       '\n [4] Observações da Ocorrência'
+                       '\n [0] Cancelar'
+                       '\n Opção: ')
+
+            if op == '1':
+                ocorrencia_selecionada['tipoOcorrencia'] = input('Digite o novo tipo da ocorrência: ')
+            elif op == '2':
+                ocorrencia_selecionada['local'] = input('Digite o novo local da ocorrência: ')
+            elif op == '3':
+                ocorrencia_selecionada['status'] = not ocorrencia_selecionada['status']
+            elif op == '4':
+                ocorrencia_selecionada['observacoes'] = input('Digite as novas observações da ocorrência: ')
+            elif op == '0':
+                return
+            else:
+                print(' Opção inválida.')
+
+            with open('ocorrencias.json', 'w', encoding='utf-8') as arquivo_ocorrencias:
+                json.dump(ocorrencias, arquivo_ocorrencias, indent=2, ensure_ascii=False)
+
+            print(' Ocorrência alterada com sucesso.')
+        else:
+            print(' Número de ocorrência inválido.')
+    except ValueError:
+        print('Digite um número válido.')
+
+
+def listar_ocorrencias():
+    print('\n>>>>> Listar Ocorrências <<<<<')
+    with open('ocorrencias.json', 'r', encoding='utf-8') as arquivo_ocorrencias:
+        ocorrencias = json.load(arquivo_ocorrencias)
+
+    if not ocorrencias:
+        print('Não há ocorrências para listar.')
+        return
+
+    for i, ocorrencia in enumerate(ocorrencias):
+        print(f'\nOcorrência {i + 1}:')
+        print(f"Data: {ocorrencia['data']}")
+        print(f"Status: {'Aberta' if ocorrencia['status'] else 'Fechada'}")
+        print(f"Tipo: {ocorrencia['tipoOcorrencia']}")
+        print(f"Local: {ocorrencia['local']}")
+        print(f"Observações: {ocorrencia['observacoes']}")
+        print('----------------------------')
+
+
+# Executando o Programa
+menu_principal()
