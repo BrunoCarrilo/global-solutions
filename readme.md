@@ -23,7 +23,7 @@ Nesta etapa específica do projeto, integrada à disciplina "Computational Think
  -  **RM552981** - Patricia Naomi Yamagishi
  
 ## Vídeo
-Vídeo da explicação do projeto da Global Solution e o código em execução: [Link no YouTube ALTERAR LINK](https://www.youtube.com/watch?v=wS5WSZMN7d8&ab_channel=BrunoCarrilo)
+Vídeo da explicação do projeto da Global Solution e o código em execução: [Link no YouTube](https://www.youtube.com/watch?v=F2GAz1JpPds&feature=youtu.be)
 
 ## Descrição
 O código adota um formato de menu interativo, possibilitando que os usuários executem diversas operações relacionadas ao DesfibrilaDrone e às ocorrências médicas. Um desses menus visa a interação com o usuário final, fornecendo informações detalhadas sobre o projeto, explicando sua finalidade, benefícios e funcionalidades. Já o segundo menu é destinado ao administrador, permitindo que, após o login, ele possa registrar, modificar e visualizar todas as ocorrências listadas no sistema do drone.
